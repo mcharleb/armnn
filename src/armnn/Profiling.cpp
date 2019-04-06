@@ -18,6 +18,9 @@
 
 #include <boost/algorithm/string.hpp>
 #include <boost/core/ignore_unused.hpp>
+
+#include "../../src/backends/hexagon/HexagonBackend.hpp"
+
 namespace armnn
 {
 
@@ -481,6 +484,9 @@ std::uint32_t Profiler::GetEventColor(Compute compute) const
             // Purple
             return 0xff007f1b;
         default:
+            if (HexagonBackend::GetIdStatic() == compute) {
+                return 0xff00001b;
+            }
             // Dark gray
             return 0x5555551b;
     }

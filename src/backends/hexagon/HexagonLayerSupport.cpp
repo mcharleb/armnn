@@ -56,11 +56,9 @@ bool HexagonLayerSupport::IsAdditionSupported(const TensorInfo& input0,
 
 bool HexagonLayerSupport::IsDebugSupported(const TensorInfo& input,
                                        const TensorInfo& output,
-                                       const DebugDescriptor& descriptor,
                                        Optional<std::string&> reasonIfUnsupported) const
 {
     ignore_unused(output);
-    ignore_unused(descriptor);
     return IsSupportedForDataTypeHexagon(reasonIfUnsupported,
                                      input.GetDataType(),
                                      &FalseFunc<>,

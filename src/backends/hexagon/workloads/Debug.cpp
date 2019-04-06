@@ -17,10 +17,10 @@ namespace hexagon
 
 template <typename T>
 void Debug(const TensorInfo& inputInfo,
-           const TensorInfo& outputInfo,
-           const DebugDescriptor& descriptor,
            const T* inputData,
-           T* outputData)
+           LayerGuid guid,
+           const std::string& layerName,
+           unsigned int slotIndex)
 {
     const unsigned int numDims = inputInfo.GetNumDimensions();
     const unsigned int numElements = inputInfo.GetNumElements();
@@ -35,8 +35,9 @@ void Debug(const TensorInfo& inputInfo,
     }
 
     std::cout << "{ ";
-    std::cout << "\"layer\": \"" << descriptor.m_LayerName << "\", ";
-    std::cout << "\"outputSlot\": " << descriptor.m_SlotIndex << ", ";
+    std::cout << "\"layerGuid\": " << guid << ", ";
+    std::cout << "\"layerName\": \"" << layerName << "\", ";
+    std::cout << "\"outputSlot\": " << slotIndex << ", ";
     std::cout << "\"shape\": ";
 
     std::cout << "[";
@@ -85,20 +86,19 @@ void Debug(const TensorInfo& inputInfo,
     }
 
     std::cout << " }" << std::endl;
-
-    std::memcpy(outputData, inputData, inputInfo.GetNumElements()*sizeof(T));
 }
 
 template void Debug<float>(const TensorInfo& inputInfo,
-                           const TensorInfo& outputInfo,
-                           const DebugDescriptor& descriptor,
                            const float* inputData,
-                           float* outputData);
+                           LayerGuid guid,
+                           const std::string& layerName,
+                           unsigned int slotIndex);
 
 template void Debug<uint8_t>(const TensorInfo& inputInfo,
-                             const TensorInfo& outputInfo,
-                             const DebugDescriptor& descriptor,
                              const uint8_t* inputData,
-                             uint8_t* outputData);
+                             LayerGuid guid,
+                             const std::string& layerName,
+                             unsigned int slotIndex);
+
 } // namespace hexagon
 } // namespace armnn
